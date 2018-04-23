@@ -1,12 +1,14 @@
 package com.example.logindemo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -53,10 +55,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.Rest_Address.setText(Address_Rest.get(position));
 
         Glide.with(context).load(Picture_Rest.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.RestImage);
+        
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), SecondActivity.class);
+                Toast.makeText(context, "Hello", Toast.LENGTH_SHORT).show();
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return Name_Rest.size();
     }
+
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
 }
+
